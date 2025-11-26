@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/TakeHomeAssignment.General.AccountAPI.UnitTest/bin/Debug/net6.0
+/TakeHomeAssignment.General.AccountAPI.UnitTest/obj/Debug/net6.0
+/TakeHomeAssignment.General.AccountAPI.UnitTest/obj
+/TakeHomeAssignment.General.AccountAPI/obj
+/TakeHomeAssignment.General.AccountAPI/bin/Debug/net6.0

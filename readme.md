@@ -1,62 +1,69 @@
-# Take-home Assignment: Auth with JWT (TypeScript)
+# TakeHomeAssignment.General.AccountAPI
 
-Build a small application in **TypeScript/Go/C#** that supports user **registration** and **login** using **JWT**.
-You can choose any stack or structure you want.
-As long as the core auth flow works end-to-end, it’s accepted.
+![.NET](https://img.shields.io/badge/.NET-6-blue)
+![Status](https://img.shields.io/badge/status-active-success)
 
----
-
-## Requirements
-
-### 1. Register
-
-- Fields: `email`, `password`, `confirmPassword`
-
-### 2. Login
-
-- Input: `email`, `password`
-- Return: **JWT**
-- Token should contain at least:
-
-  - `email`
-  - `user id` or similar identifier
-
-### 3. Authenticated View / Endpoint
-
-After successful login, calling the protected route / loading the protected screen should show:
-
-```
-Hello [email], welcome back
-```
-
-user should be logged out after 15 minutes of inacitvity
+A **JWT-based authentication API** built with **.NET 6**, featuring user registration, login, and a protected endpoint with configurable token expiration.
 
 ---
 
-## What to deliver
+## Table of Contents
 
-- Fork this repository and then send the link
-- A runnable project (any structure).
-- README explaining:
-
-  - How to build and run it (prepare docker compose)
-  - Required environment variables
-
----
-
-## Acceptance criteria
-
-- Registration works with validation.
-- Login returns a usable JWT.
-- A protected route or screen shows the welcome message using JWT auth.
+- [Features](#features)
+- [Environment Variables](#environment-variables)
+- [Running the Project](#running-the-project)
+- [API Endpoints](#api-endpoints)
+- [Notes](#notes)
 
 ---
 
-## Optional bonus
+## Features
 
-- Docker
-- Backend built using Go (or their frameworks)
-- Frontend built using React/Vue (or their frameworks)
-- Tests (unit or integration)
+- **Register**: Create a new user (email + password).  
+- **Login**: Returns a JWT token containing email.  
+- **Protected Endpoint (`/Me`)**: Accessible only with a valid JWT token.  
+- **Token Expiration**: Configurable via `appsettings.json`.
+- **Inactivity Timeout**: User session expires after 15 minutes of inactivity (sliding expiration).
 
-This keeps the scope tight: just registration, login, and a protected “Hello [email]” flow.
+---
+
+## Environment Variables
+
+Set the following before running:
+
+| Variable | Description |
+|----------|-------------|
+| `ASPNETCORE_ENVIRONMENT` | Environment mode (e.g., `Development`, `Qualitycontrol`, `Staging`, `Production`) |
+| `THA_JWT_SIGNING_KEY` | Secret key used to sign JWT tokens |
+
+---
+
+## Running the Project
+- *Restore dependencies:* dotnet restore
+- *Build the project:* dotnet build
+- *Run the API: dotnet run
+
+Swagger UI: [https://localhost:7068/swagger](https://localhost:7068/swagger)
+
+---
+
+## API Endpoints
+
+| Endpoint | Method | Auth | Description |
+|----------|--------|------|-------------|
+| `/Register` | POST | ❌ | Register a new user |
+| `/Login` | POST | ❌ | Login and get JWT token |
+| `/Me` | POST | ✅ | Protected route; shows welcome message |
+
+---
+
+## Example Login Response
+
+```json
+{
+  "status": true,
+  "message": "Login successful",
+  "data": {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  }
+}
